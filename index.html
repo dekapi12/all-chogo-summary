@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>All朝高プロジェクト 推進状況サマリー</title>
+<style>
+  :root {
+    --surface-page:   #f9f9f7;
+    --surface-card:   #fcfcfb;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --border:         rgba(11,11,11,0.10);
+    --accent:         #2a78d6;
+    --accent-soft:    #cde2fb;
+    --aqua:           #1baf7a;
+    --good:           #0ca30c;
+    --warning:        #fab219;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-page:   #0d0d0d;
+      --surface-card:   #1a1a19;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --border:         rgba(255,255,255,0.10);
+      --accent:         #3987e5;
+      --accent-soft:    #184f95;
+      --aqua:           #199e70;
+      --good:           #0ca30c;
+      --warning:        #fab219;
+    }
+  }
+
+  * { box-sizing: border-box; min-width: 0; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+    background: var(--surface-page);
+    color: var(--text-primary);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 24px 16px 64px;
+  }
+
+  header.page-header {
+    padding: 28px 4px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+  header.page-header h1 {
+    font-size: 1.5rem;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  header.page-header .updated {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  header.page-header .lede {
+    margin-top: 14px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  section { margin-bottom: 40px; }
+  section h2 {
+    font-size: 1.05rem;
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    flex: none;
+  }
+  section p.section-note {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    margin: -8px 0 16px;
+  }
+
+  /* Stat tiles */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  @media (min-width: 640px) {
+    .stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .stat-tile {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 14px;
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+  .stat-tile .label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+  .stat-tile .value {
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    overflow-wrap: break-word;
+  }
+  .stat-tile .sub {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* Decision list */
+  .decision-list {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .decision-list li {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.92rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .decision-list li::before {
+    content: "";
+    flex: none;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--good);
+    margin-top: 8px;
+  }
+
+  /* Roadmap timeline */
+  .timeline {
+    display: grid;
+    gap: 10px;
+  }
+  @media (min-width: 700px) {
+    .timeline {
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+    }
+  }
+  .tl-item {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    position: relative;
+  }
+  .tl-item.done { border-color: var(--good); }
+  .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+  .tl-item .tl-time {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .tl-item.done .tl-time { color: var(--good); }
+  .tl-item.current .tl-time { color: var(--accent); }
+  .tl-item .tl-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 6px;
+  }
+  .tl-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    padding: 1px 6px;
+    border-radius: 999px;
+    margin-left: 6px;
+    vertical-align: 1px;
+  }
+  .tl-badge.current { background: var(--accent-soft); color: var(--accent); }
+
+  /* Task columns */
+  .task-grid {
+    display: grid;
+    gap: 14px;
+  }
+  @media (min-width: 640px) {
+    .task-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  .task-col {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .task-col h3 {
+    margin: 0 0 10px;
+    font-size: 0.88rem;
+    color: var(--accent);
+  }
+  .task-col ul {
+    margin: 0; padding-left: 18px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+  .task-col li { margin-bottom: 6px; }
+
+  /* Survey */
+  .survey-box {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: grid;
+    gap: 16px;
+  }
+  @media (min-width: 640px) {
+    .survey-box { grid-template-columns: 140px minmax(0, 1fr); align-items: start; }
+  }
+  .survey-score .value { font-size: 2rem; font-weight: 700; color: var(--accent); }
+  .survey-score .label { font-size: 0.78rem; color: var(--text-muted); }
+  .survey-points {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .survey-points span {
+    font-size: 0.78rem;
+    background: var(--surface-page);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 10px;
+    color: var(--text-secondary);
+  }
+
+  .note-box {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--warning);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    margin-top: 40px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page-header">
+    <h1>All朝高プロジェクト 推進状況サマリー</h1>
+    <div class="updated">最終更新：2026年7月2日（推進会議 2026年6月30日議事録ベース）</div>
+    <p class="lede">
+      全国に分散した朝高ラグビー部員の力を統合し、合同チームで花園出場を目指すプロジェクト。
+      東日本114人・西日本130人——それぞれでは単独チームを維持できない規模でも、統合すれば全国で約244人になる。
+      本ページは会議参加メンバー向けの限定共有ページです。
+    </p>
+  </header>
+
+  <section>
+    <h2><span class="dot"></span>前提となる人口比率</h2>
+    <p class="section-note">高3世代（2008年生まれ・2024年入学）を基準とした推計値（2026年6月時点）</p>
+    <div class="stat-grid">
+      <div class="stat-tile">
+        <div class="label">朝高在籍推計（全国）</div>
+        <div class="value">約244人</div>
+        <div class="sub">東日本114人・西日本130人</div>
+      </div>
+      <div class="stat-tile">
+        <div class="label">在日コリアン人口（全国）</div>
+        <div class="value">約1,218人</div>
+        <div class="sub">特別永住者ベース推計</div>
+      </div>
+      <div class="stat-tile">
+        <div class="label">朝高在籍率</div>
+        <div class="value">約20%</div>
+        <div class="sub">対象世代人口に対する比率</div>
+      </div>
+      <div class="stat-tile">
+        <div class="label">二大拠点</div>
+        <div class="value">関東・近畿</div>
+        <div class="sub">関東114人／近畿104.6人</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="dot"></span>進捗ロードマップ</h2>
+    <p class="section-note">目標：2026年11月末に学籍移動完了 → 2027年6月予選から出場可（現在地点：7月）</p>
+    <div class="timeline">
+      <div class="tl-item done">
+        <div class="tl-time">6月</div>
+        <div class="tl-desc">指導者間で基本認識・議論ルールを確認</div>
+      </div>
+      <div class="tl-item current">
+        <div class="tl-time">7月<span class="tl-badge current">進行中</span></div>
+        <div class="tl-desc">各地域の本音・条件・懸念を出し切る</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">8月</div>
+        <div class="tl-desc">菅平合宿。第一案のたたき台を作成</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">9月</div>
+        <div class="tl-desc">第一案提示。保護者・学校説明会</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10月</div>
+        <div class="tl-desc">意見を踏まえ案を修正・具体化</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">11月末</div>
+        <div class="tl-desc">デッドライン。実行可能な案を提示</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">プランB<br>2月末</div>
+        <div class="tl-desc">11月末に整わない場合の最終ライン</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="dot"></span>会議で決まったこと</h2>
+    <p class="section-note">2026年6月30日 推進会議より</p>
+    <ul class="decision-list">
+      <li>7月は条件と懸念を出し切る期間とし、結論は出さない</li>
+      <li>反対意見も含めて各地域の本音を整理する</li>
+      <li>保護者説明は、数字と根拠を持って正直に行う</li>
+      <li>生徒への説明は、保護者説明の後に行う</li>
+      <li>オール朝高は人数不足の一時的対策ではなく、朝高ラグビーを強く残すための方向性として進める</li>
+      <li>部員数増加の努力は継続するが、それはオール朝高をより強くするためのものとする</li>
+      <li>各地域で保護者・OB・関係者リストを作成する（期限：1週間以内）</li>
+      <li>保護者への聞き取りは当面、雑談形式で進める</li>
+      <li>中3保護者への対応は、各地域の高校責任者が中学責任者と連携して進める</li>
+      <li>菅平合宿中に保護者が見学・意見交換できる場を設ける</li>
+      <li>11月30日を一つのデッドラインとする</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="dot"></span>次回までのタスク</h2>
+    <div class="task-grid">
+      <div class="task-col">
+        <h3>各地域責任者</h3>
+        <ul>
+          <li>保護者・OB・関係者リストを作成し共有する</li>
+          <li>保護者に雑談形式で意見を聞き取り、メモとして共有する</li>
+          <li>中学責任者と連携し、中3保護者への対応方法を確認する</li>
+          <li>地域ごとの希望・懸念・譲れない条件を整理する</li>
+        </ul>
+      </div>
+      <div class="task-col">
+        <h3>実務側</h3>
+        <ul>
+          <li>学校行政上の論点を整理する（登録・学籍・手続き）</li>
+          <li>愛知について、中央から学校側への説明を検討する</li>
+          <li>7月末までに各地域の要望・条件を一覧化する</li>
+          <li>菅平合宿で使用する議論資料を準備する</li>
+        </ul>
+      </div>
+      <div class="task-col">
+        <h3>全体</h3>
+        <ul>
+          <li>7月中に各地域の本音と条件を出し切る</li>
+          <li>菅平合宿までに第一案作成に向けた材料を揃える</li>
+          <li>合宿で生徒・保護者・指導者が具体的な議論に入れる状態を作る</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="dot"></span>保護者アンケート結果</h2>
+    <p class="section-note">2026年6月20日 第一回保護者意見交換会（回答9件）</p>
+    <div class="survey-box">
+      <div class="survey-score">
+        <div class="value">3.7<span style="font-size:1rem;color:var(--text-muted);"> / 5</span></div>
+        <div class="label">満足度平均</div>
+      </div>
+      <div class="survey-points">
+        <span>寮生活・学校生活への不安</span>
+        <span>意思決定の透明性</span>
+        <span>指導体制・コーチングの質</span>
+        <span>費用・移動負担</span>
+        <span>子どもが大人の都合で動かされないか</span>
+      </div>
+    </div>
+    <p class="section-note" style="margin-top:12px;">
+      回答数は限定的なため、今後も各地域で直接の聞き取りを継続する方針。
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="dot"></span>制度上のポイント</h2>
+    <div class="note-box">
+      <strong>高体連6ヶ月ルール：</strong>転入後6ヶ月間は公式戦出場不可。
+      2027年6月予選出場を目指す場合、<strong>2026年11月末までに学籍移動完了が必須</strong>（11月末転入なら翌年5月予選から出場可）。
+    </div>
+  </section>
+
+  <footer>
+    <p>本ページは会議参加メンバー向けの限定共有ページです（URLを知っている方のみ閲覧可能・検索エンジン非掲載）。転載・外部共有はご遠慮ください。</p>
+    <p>内容の更新は都度対応します。反映してほしい資料がある場合はお声がけください。</p>
+  </footer>
+
+</div>
+</body>
+</html>
