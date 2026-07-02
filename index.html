@@ -193,6 +193,53 @@
   }
   .tl-badge.current { background: var(--accent-soft); color: var(--accent); }
 
+  /* History timeline */
+  .history-list {
+    list-style: none;
+    margin: 0;
+    padding-left: 18px;
+    border-left: 2px solid var(--border);
+  }
+  .history-list li {
+    position: relative;
+    padding-bottom: 18px;
+  }
+  .history-list li:last-child { padding-bottom: 0; }
+  .history-list li::before {
+    content: "";
+    position: absolute;
+    left: -23px;
+    top: 4px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .history-list li.milestone::before {
+    width: 10px; height: 10px;
+    left: -24px;
+    background: var(--warning);
+  }
+  .history-list .h-date {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 3px;
+  }
+  .history-list li.milestone .h-date { color: var(--warning); }
+  .history-list .h-content {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+  .history-list li.milestone .h-content {
+    color: var(--text-primary);
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--warning);
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-top: 4px;
+  }
+
   /* Task columns */
   .task-grid {
     display: grid;
@@ -269,7 +316,7 @@
 
   <header class="page-header">
     <h1>All朝高プロジェクト 推進状況サマリー</h1>
-    <div class="updated">最終更新：2026年7月2日</div>
+    <div class="updated">最終更新：2026年7月2日（これまでの経緯を追加）</div>
     <p class="lede">
       朝高ラガーマンたちが、朝高として花園（全国高校ラグビー大会）を目指しながら、幸せに競技スポーツとしてラグビーに打ち込める環境をつくるプロジェクト。
       花園という舞台を通じて朝高・在日コリアンの魅力を発信し続け、ひいては民族教育自体を再発展させることを目指す。
@@ -277,6 +324,53 @@
       本ページは会議参加メンバー向けの限定共有ページです。
     </p>
   </header>
+
+  <section>
+    <h2><span class="dot"></span>これまでの経緯</h2>
+    <p class="section-note">2025年度の停滞から、2026年度のフェーズ型構築への転換まで</p>
+    <ul class="history-list">
+      <li>
+        <div class="h-date">2025年5月</div>
+        <div class="h-content">大阪府総体3位決定戦欠場。単独チーム維持の困難に現場が直面</div>
+      </li>
+      <li>
+        <div class="h-date">2025年6〜8月</div>
+        <div class="h-content">現場（指導者間）で東京開催による合同構想の合意形成が進む</div>
+      </li>
+      <li>
+        <div class="h-date">2025年9月</div>
+        <div class="h-content">朝大合宿にて指導者間のコンセンサスを確認。学生アンケートを実施（約85%が「朝高生だけでチームを作り続けたい」と回答）</div>
+      </li>
+      <li class="milestone">
+        <div class="h-date">2025年9〜12月（2025年度の失敗）</div>
+        <div class="h-content">全国一斉合意を前提に計画が先行する中、保護者・学校への説明が追いつかず、情報の行き違いから地域間の不信・抵抗が表面化。最も抵抗の大きい地域がボトルネックとなり、計画は停滞した</div>
+      </li>
+      <li>
+        <div class="h-date">2025年12月11日</div>
+        <div class="h-content">説明会を実施</div>
+      </li>
+      <li>
+        <div class="h-date">2026年2月</div>
+        <div class="h-content">前年度の反省を踏まえ、2026年度に向けた進め方を関係者間で再検討</div>
+      </li>
+      <li>
+        <div class="h-date">2026年6月20日</div>
+        <div class="h-content">第一回保護者意見交換会を開催。「説明会」ではなく「問いかけの場」として、部員数の現状・分散から統合への論理・10年後シナリオを数字とともに共有し、保護者に3つの問いを投げかけた</div>
+      </li>
+      <li>
+        <div class="h-date">2026年6月22日</div>
+        <div class="h-content">オール朝高構想に関する関係者協議を実施</div>
+      </li>
+      <li>
+        <div class="h-date">2026年6月30日</div>
+        <div class="h-content">推進会議にて、フェーズ型構築への転換と2026年度ロードマップを正式に確認</div>
+      </li>
+    </ul>
+    <p class="section-note" style="margin-top:14px;">
+      2025年度の失敗から得た教訓は、「知らない間に決まった」と保護者・生徒に感じさせないこと。
+      結論を急がず、各地域の本音と条件を丁寧に聞き取ってから進めることが、2026年度の進め方（フラットな議論・反対意見を排除しない・結論を急がない）の土台になっている。
+    </p>
+  </section>
 
   <section>
     <h2><span class="dot"></span>前提となる人口比率</h2>
